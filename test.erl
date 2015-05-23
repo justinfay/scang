@@ -5,6 +5,7 @@ test() ->
     test_tokenize(),
     test_atom(),
     test_read_from_tokens(),
+    test_parse(),
     tests_passed.
 
 test_tokenize() ->
@@ -25,3 +26,8 @@ test_read_from_tokens() ->
         "(", "begin", "(", "define", "r", "10", ")",
         "(", "*", "pi", "(", "*", "r", "r", ")", ")", ")"]),
     Tokens = ["begin", ["define", "r", 10], ["*", "pi", ["*", "r", "r"]]].
+
+test_parse() ->
+    Program = scang:parse("(begin (define r 10) (* pi (* r r)))"),
+    Program = ["begin", ["define", "r", 10], ["*", "pi", ["*", "r", "r"]]].
+

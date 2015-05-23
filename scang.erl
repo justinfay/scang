@@ -1,5 +1,5 @@
 -module(scang).
--export([tokenize/1, atom/1, read_from_tokens/1]).
+-export([tokenize/1, atom/1, read_from_tokens/1, parse/1]).
 
 -ifndef(PRINT).
 -define(PRINT(Var), io:format("DEBUG: ~p:~p - ~p ~p~n", [?MODULE, ?LINE, ??Var, Var])).
@@ -57,3 +57,7 @@ read_from_tokens([H|T], Expression) ->
         Token -> read_from_tokens(T, lists:append(Expression, [atom(Token)]))
     end;
 read_from_tokens([], [H|_]) -> H.
+
+parse(Program) ->
+    % Read a scheme expression from a strign.
+    read_from_tokens(tokenize(Program)).
