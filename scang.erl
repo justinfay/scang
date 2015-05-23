@@ -14,10 +14,10 @@ tokenize(Chars) ->
         " ").
 
 atom(Token) ->
-    {Int, _} = to_int(Token),
+    Int = to_int(Token),
     if
         Int == error ->
-            {Float, _} = to_float(Token),
+            Float = to_float(Token),
             if
                 Float == error ->
                     Token;
@@ -32,18 +32,18 @@ to_int(Token) ->
     {Int, Rest} = string:to_integer(Token),
     if
         Int == error orelse Rest /= [] ->
-            {error, Rest};
+            error;
         true ->
-            {Int, Rest}
+            Int
     end.
 
 to_float(Token) ->
     {Float, Rest} = string:to_float(Token),
     if
         Float == error orelse Rest /= [] ->
-            {error, Rest};
+            error;
         true ->
-            {Float, Rest}
+            Float
     end.
 
 
